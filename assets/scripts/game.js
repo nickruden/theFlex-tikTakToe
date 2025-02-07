@@ -82,6 +82,105 @@ function announceWinner(player) {
   }
 }
 
+// Версия посложнее
+// function minimax(board, depth, isMaximizing) {
+//   const scores = {
+//     X: -1,
+//     O: 1,
+//     tie: 0,
+//   };
+
+//   const result = checkWinner(board);
+//   if (result !== null) {
+//     return scores[result];
+//   }
+
+//   if (isMaximizing) {
+//     let bestScore = -Infinity;
+//     for (let i = 0; i < 9; i++) {
+//       if (board[i] === "") {
+//         board[i] = "O";
+//         let score = minimax(board, depth + 1, false);
+//         board[i] = "";
+//         bestScore = Math.max(score, bestScore);
+//       }
+//     }
+//     return bestScore;
+//   } else {
+//     let bestScore = Infinity;
+//     for (let i = 0; i < 9; i++) {
+//       if (board[i] === "") {
+//         board[i] = "X";
+//         let score = minimax(board, depth + 1, true);
+//         board[i] = "";
+//         bestScore = Math.min(score, bestScore);
+//       }
+//     }
+//     return bestScore;
+//   }
+// }
+
+// function findBestMove() {
+//   const board = cells.map((cell) => cell.textContent);
+//   const emptyCellsCount = board.filter(cell => cell === "").length;
+
+//   // Если это первый ход компьютера (поле почти пустое)
+//   if (emptyCellsCount === 8) {
+//     const corners = [0, 2, 6, 8]; // Угловые ячейки
+//     const randomChoice = Math.random(); // Генерируем случайное число
+
+//     if (randomChoice < 0.5) {
+//       // С вероятностью 50% выбираем случайную угловую ячейку
+//       const randomCorner = corners[Math.floor(Math.random() * corners.length)];
+//       return randomCorner;
+//     } else {
+//       // С вероятностью 50% выбираем центр, если он свободен
+//       if (board[4] === "") return 4;
+//     }
+//   }
+
+//   // Иначе используем Minimax для поиска лучшего хода
+//   let bestScore = -Infinity;
+//   let bestMove = null;
+//   for (let i = 0; i < 9; i++) {
+//     if (board[i] === "") {
+//       board[i] = "O";
+//       let score = minimax(board, 0, false);
+//       board[i] = "";
+//       if (score > bestScore) {
+//         bestScore = score;
+//         bestMove = i;
+//       }
+//     }
+//   }
+//   return bestMove;
+// }
+
+// function checkWinner(board) {
+//   const winningCombinations = [
+//     [0, 1, 2],
+//     [3, 4, 5],
+//     [6, 7, 8],
+//     [0, 3, 6],
+//     [1, 4, 7],
+//     [2, 5, 8],
+//     [0, 4, 8],
+//     [2, 4, 6],
+//   ];
+
+//   for (const combo of winningCombinations) {
+//     const [a, b, c] = combo;
+//     if (board[a] && board[a] === board[b] && board[a] === board[c]) {
+//       return board[a];
+//     }
+//   }
+
+//   if (board.every((cell) => cell !== "")) {
+//     return "tie";
+//   }
+//   return null;
+// }
+
 // Логика поиска лучшего хода для компьютера
 function findBestMove() {
   // Попытка выиграть
