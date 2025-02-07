@@ -92,9 +92,6 @@ function findBestMove() {
   move = findWinningMove("X");
   if (move !== null) return move;
 
-  // Выбор центральной ячейки, если она свободна
-  if (cells[4].textContent === "") return 4;
-
   // Выбор случайной свободной ячейки
   const emptyCells = cells
     .map((cell, index) => (cell.textContent === "" ? index : null))
