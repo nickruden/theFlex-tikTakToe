@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="../styles/reset.css">
   <link rel="stylesheet" href="../styles/components/desktop-block.css">
   <link rel="stylesheet" href="../styles/components/header.css">
+  <link rel="stylesheet" href="../styles/components/game/game-board.css">
   <link rel="stylesheet" href="../styles/UI/my-button.css">
 
   <link rel="stylesheet" href="../styles/pages/game.css">
@@ -43,13 +44,13 @@
       <div class="game-page">
         <div class="my-container game-page__container">
           <div class="game-page__loss-text">Упс! В следующий раз удача будет на твоей стороне</div>
-          <div class="game-page__game-content">
-            <div class="game-board" id="board"></div>
-            <div class="game-page__bg-images">
-              <img src="../assets/images/game-line.svg" alt="" class="game-page__bg-img-1">
-              <img src="../assets/images/game-line.svg" alt="" class="game-page__bg-img-2">
-              <img src="../assets/images/game-line.svg" alt="" class="game-page__bg-img-3">
-              <img src="../assets/images/game-line.svg" alt="" class="game-page__bg-img-4">
+          <div class="game-content game-page__game-content">
+            <div class="game-content__game-board" id="board"></div>
+            <div class="game-content__bg-images">
+              <img src="../assets/images/game-line.svg" alt="" class="game-content__bg-img-1">
+              <img src="../assets/images/game-line.svg" alt="" class="game-content__bg-img-2">
+              <img src="../assets/images/game-line.svg" alt="" class="game-content__bg-img-3">
+              <img src="../assets/images/game-line.svg" alt="" class="game-content__bg-img-4">
             </div>
           </div>
           <button class="my-button --color-red" id="restartButton">попробовать еще раз</button>
