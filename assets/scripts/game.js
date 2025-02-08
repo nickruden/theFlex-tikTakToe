@@ -1,6 +1,10 @@
 const board = document.getElementById("board");
+const lossText = document.querySelector(".game-page__loss-text");
 const restartButton = document.getElementById("restartButton");
 const cells = [];
+const xImage = "../assets/images/x.svg";
+const oImage = "../assets/images/heart.svg";
+
 let currentPlayer = "X";
 let gameActive = true;
 
@@ -14,6 +18,9 @@ function createBoard() {
     board.appendChild(cell);
     cells.push(cell);
   }
+
+  restartButton.style.display = "none";
+  lossText.style.display = "none";
 }
 
 // Обработчик клика по ячейке
@@ -21,9 +28,11 @@ function handleCellClick(event) {
   const cell = event.target;
   const index = cell.dataset.index;
 
-  if (cells[index].textContent !== "" || !gameActive) return;
+  if (cell.querySelector("img") || !gameActive) return;
 
-  cells[index].textContent = currentPlayer;
+  // Добавляем изображение в ячейку
+  addImageToCell(cell, currentPlayer);
+
   checkGameStatus();
 
   if (gameActive && currentPlayer === "X") {
@@ -32,11 +41,21 @@ function handleCellClick(event) {
   }
 }
 
+// Добавление изображения в ячейку
+function addImageToCell(cell, player) {
+  const img = document.createElement("img");
+  img.src = player === "X" ? oImage : xImage;
+  img.alt = player;
+  img.classList.add("icon");
+  cell.appendChild(img);
+  img.style.pointerEvents = "none";
+}
+
 // Ход компьютера
 function computerMove() {
   let bestMove = findBestMove();
   if (bestMove !== null) {
-    cells[bestMove].textContent = "O";
+    addImageToCell(cells[bestMove], "O");
     checkGameStatus();
     currentPlayer = "X";
   }
@@ -57,17 +76,23 @@ function checkGameStatus() {
 
   for (const combo of winningCombinations) {
     const [a, b, c] = combo;
+    const imgA = cells[a].querySelector("img");
+    const imgB = cells[b].querySelector("img");
+    const imgC = cells[c].querySelector("img");
+
     if (
-      cells[a].textContent &&
-      cells[a].textContent === cells[b].textContent &&
-      cells[a].textContent === cells[c].textContent
+      imgA &&
+      imgB &&
+      imgC &&
+      imgA.alt === imgB.alt &&
+      imgA.alt === imgC.alt
     ) {
-      announceWinner(cells[a].textContent);
+      announceWinner(imgA.alt);
       return;
     }
   }
 
-  if ([...cells].every((cell) => cell.textContent !== "")) {
+  if ([...cells].every((cell) => cell.querySelector("img"))) {
     announceWinner(null); // Ничья
   }
 }
@@ -75,111 +100,63 @@ function checkGameStatus() {
 // Объявление победителя
 function announceWinner(player) {
   gameActive = false;
+
   if (player) {
-    alert(`Победил игрок ${player}!`);
+    // Находим выигрышную комбинацию
+    const winningCombination = findWinningMove(player);
+    if (winningCombination !== null) {
+      highlightWinningCombination(winningCombination); // Зачеркиваем выигрышную комбинацию
+    }
+
+    // Добавляем класс won или loss в зависимости от победителя
+    if (player === "X") {
+      board.classList.add("won"); // Игрок победил
+    } else {
+      board.classList.add("loss"); // Компьютер победил
+      restartButton.style.display = "flex";
+      lossText.style.display = "block";
+    }
+
   } else {
-    alert("Ничья!");
+    board.classList.add("loss");
+    restartButton.style.display = "flex";
+    lossText.style.display = "block";
   }
 }
 
-// Версия посложнее
-// function minimax(board, depth, isMaximizing) {
-//   const scores = {
-//     X: -1,
-//     O: 1,
-//     tie: 0,
-//   };
+// Подсветка выигрышной комбинации
+function highlightWinningCombination(combination) {
+  const [a, b, c] = combination;
 
-//   const result = checkWinner(board);
-//   if (result !== null) {
-//     return scores[result];
-//   }
+  // Создаем линию, которая будет зачеркивать выигрышную комбинацию
+  const line = document.createElement("div");
+  line.classList.add("winning-line");
 
-//   if (isMaximizing) {
-//     let bestScore = -Infinity;
-//     for (let i = 0; i < 9; i++) {
-//       if (board[i] === "") {
-//         board[i] = "O";
-//         let score = minimax(board, depth + 1, false);
-//         board[i] = "";
-//         bestScore = Math.max(score, bestScore);
-//       }
-//     }
-//     return bestScore;
-//   } else {
-//     let bestScore = Infinity;
-//     for (let i = 0; i < 9; i++) {
-//       if (board[i] === "") {
-//         board[i] = "X";
-//         let score = minimax(board, depth + 1, true);
-//         board[i] = "";
-//         bestScore = Math.min(score, bestScore);
-//       }
-//     }
-//     return bestScore;
-//   }
-// }
+  // Определяем позицию и ориентацию линии
+  const cellA = cells[a];
+  const cellB = cells[b];
+  const cellC = cells[c];
 
-// function findBestMove() {
-//   const board = cells.map((cell) => cell.textContent);
-//   const emptyCellsCount = board.filter(cell => cell === "").length;
+  const rectA = cellA.getBoundingClientRect();
+  const rectC = cellC.getBoundingClientRect();
 
-//   // Если это первый ход компьютера (поле почти пустое)
-//   if (emptyCellsCount === 8) {
-//     const corners = [0, 2, 6, 8]; // Угловые ячейки
-//     const randomChoice = Math.random(); // Генерируем случайное число
+  const boardRect = board.getBoundingClientRect();
 
-//     if (randomChoice < 0.5) {
-//       // С вероятностью 50% выбираем случайную угловую ячейку
-//       const randomCorner = corners[Math.floor(Math.random() * corners.length)];
-//       return randomCorner;
-//     } else {
-//       // С вероятностью 50% выбираем центр, если он свободен
-//       if (board[4] === "") return 4;
-//     }
-//   }
+  const x1 = rectA.left - boardRect.left + rectA.width / 2;
+  const y1 = rectA.top - boardRect.top + rectA.height / 2;
+  const x2 = rectC.left - boardRect.left + rectC.width / 2;
+  const y2 = rectC.top - boardRect.top + rectC.height / 2;
 
-//   // Иначе используем Minimax для поиска лучшего хода
-//   let bestScore = -Infinity;
-//   let bestMove = null;
-//   for (let i = 0; i < 9; i++) {
-//     if (board[i] === "") {
-//       board[i] = "O";
-//       let score = minimax(board, 0, false);
-//       board[i] = "";
-//       if (score > bestScore) {
-//         bestScore = score;
-//         bestMove = i;
-//       }
-//     }
-//   }
-//   return bestMove;
-// }
+  const angle = Math.atan2(y2 - y1, x2 - x1) * (180 / Math.PI);
+  const length = Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2);
 
-// function checkWinner(board) {
-//   const winningCombinations = [
-//     [0, 1, 2],
-//     [3, 4, 5],
-//     [6, 7, 8],
-//     [0, 3, 6],
-//     [1, 4, 7],
-//     [2, 5, 8],
-//     [0, 4, 8],
-//     [2, 4, 6],
-//   ];
+  line.style.width = `${length}px`;
+  line.style.transform = `rotate(${angle}deg)`;
+  line.style.top = `${y1}px`;
+  line.style.left = `${x1}px`;
 
-//   for (const combo of winningCombinations) {
-//     const [a, b, c] = combo;
-//     if (board[a] && board[a] === board[b] && board[a] === board[c]) {
-//       return board[a];
-//     }
-//   }
-
-//   if (board.every((cell) => cell !== "")) {
-//     return "tie";
-//   }
-//   return null;
-// }
+  board.appendChild(line);
+}
 
 // Логика поиска лучшего хода для компьютера
 function findBestMove() {
@@ -193,7 +170,7 @@ function findBestMove() {
 
   // Выбор случайной свободной ячейки
   const emptyCells = cells
-    .map((cell, index) => (cell.textContent === "" ? index : null))
+    .map((cell, index) => (!cell.querySelector("img") ? index : null))
     .filter((index) => index !== null);
   return emptyCells[Math.floor(Math.random() * emptyCells.length)];
 }
@@ -213,11 +190,16 @@ function findWinningMove(player) {
 
   for (const combo of winningCombinations) {
     const [a, b, c] = combo;
+    const imgA = cells[a].querySelector("img");
+    const imgB = cells[b].querySelector("img");
+    const imgC = cells[c].querySelector("img");
+
     const values = [
-      cells[a].textContent,
-      cells[b].textContent,
-      cells[c].textContent,
+      imgA ? imgA.alt : "",
+      imgB ? imgB.alt : "",
+      imgC ? imgC.alt : "",
     ];
+
     if (
       values.filter((v) => v === player).length === 2 &&
       values.includes("")
@@ -230,9 +212,15 @@ function findWinningMove(player) {
 
 // Перезапуск игры
 function restartGame() {
-  cells.forEach((cell) => (cell.textContent = ""));
+  cells.forEach((cell) => {
+    cell.innerHTML = ""; // Очищаем ячейки
+  });
+  board.classList.remove("won", "loss"); // Удаляем классы won и loss
+  board.querySelectorAll(".winning-line").forEach((line) => line.remove()); // Удаляем линии
   currentPlayer = "X";
   gameActive = true;
+  restartButton.style.display = "none";
+  lossText.style.display = "none";
 }
 
 // Инициализация игры

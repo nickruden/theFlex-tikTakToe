@@ -1,0 +1,118 @@
+/* ZERO STYLES */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    box-sizing: border-box;
+}
+
+@font-face {
+    font-family: "TipWarp";  
+    src: url("../assets/fonts/TipWarp/TiltWarp-Regular.woff2") format("woff2"),
+    url("../assets/fonts/TipWarp/TiltWarp-Regular.woff") format("woff"); 
+    font-style: normal; 
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: "SuisseIntl";  
+    src: url("../assets/fonts/SuisseIntl/SuisseIntl-Regular.otf") format("opentype"),
+    url("../assets/fonts/SuisseIntl/_SuisseIntl-Regular.otf") format("opentype"); 
+    font-style: normal; 
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: "SuisseIntl";  
+    src: url("../assets/fonts/SuisseIntl/SuisseIntl-SemiBold.otf") format("opentype"),
+    url("../assets/fonts/SuisseIntl/_SuisseIntl-SemiBold.otf") format("opentype"); 
+    font-style: normal; 
+    font-weight: 600;
+}
+
+html,
+body {
+    height: 100%;
+    font-family: "SuisseIntl";
+    font-size: 16px;
+    font-weight: 400;
+    color: #FFF;
+    line-height: 1.2;
+    letter-spacing: .0em;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+    margin-bottom: 0px;
+}
+
+a {
+    text-decoration: none;
+    color: #FFF;
+    cursor: pointer;
+}
+
+ol,
+ul {
+    padding: 0;
+    margin: 0;
+}
+
+li {
+    list-style: none;
+}
+
+img,
+iframe {
+    vertical-align: bottom;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+}
+
+input[type="checkbox"],
+button {
+    cursor: pointer;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: visible;
+    background: #B72929;
+}
+
+.wrapper.--bgColor-white {
+    background: #FFF;
+}
+
+.my-container {
+    display: flex;
+    flex-direction: column;
+    padding: 0px 20px;
+    overflow-x: hidden;
+    box-sizing: content-box;
+}
+
+.main {
+    flex: 1 0 auto;
+    overflow-x: hidden;
+}
+
+.error {
+    box-shadow: 0px 0px 4px 1px rgb(255, 85, 85);
+    color: red;
+}
+
+.error::placeholder {
+    color: rgb(255, 85, 85)!important;
+}

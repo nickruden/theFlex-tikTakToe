@@ -1,48 +1,65 @@
 <!DOCTYPE html>
 <html lang="ru">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Крестики-нолики</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      margin-top: 50px;
-    }
-    .board {
-      display: grid;
-      grid-template-columns: repeat(3, 100px);
-      grid-gap: 5px;
-      justify-content: center;
-      margin-bottom: 20px;
-    }
-    .cell {
-      width: 100px;
-      height: 100px;
-      background-color: #f0f0f0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 2em;
-      cursor: pointer;
-      border: 1px solid #ccc;
-    }
-    .cell:hover {
-      background-color: #e0e0e0;
-    }
-    button {
-      padding: 10px 20px;
-      font-size: 1em;
-      cursor: pointer;
-    }
-  </style>
-</head>
-<body>
-  <h1>Крестики-нолики</h1>
-  <div class="board" id="board"></div>
-  <button id="restartButton">Начать заново</button>
 
-  <script src="./assets/scripts/game.js"></script>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TheFlex TikTakToe</title>
+
+    <link rel="stylesheet" href="./styles/reset.css">
+    <link rel="stylesheet" href="./styles/components/desktop-block.css">
+    <link rel="stylesheet" href="./styles/components/header.css">
+    <link rel="stylesheet" href="./styles/UI/my-button.css">
+
+    <link rel="stylesheet" href="./styles/pages/main.css">
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="header">
+            <div class="my-container header__container">
+                <a href="./index.html" class="header__logo-link">
+                    <div class="header__logo-wrap-img">
+                        <img src="./assets/images/logo.svg" alt="" class="logo-img">
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <!-- ЗАГЛУШКА ДЛЯ ПК -->
+        <div class="desktop-block">
+            <div class="my-container desktop-block__container">
+                <img src="./assets/images/logo.svg" alt="" class="desktop-block__logo">
+                <div class="desktop-block__text">
+                    Сайт доступен для мобильной версии <br> Откройте сайт на телефоне
+                </div>
+                <div class="desktop-block__icon-wrap">
+                    <img src="./assets/images/desktop-icon.svg" alt="" class="desktop-block__icon">
+                </div>
+            </div>
+        </div>
+
+        <main class="main">
+            <div class="main-page">
+                <div class="my-container main-page__container">
+                    <div class="main-page__top">
+                        <div class="main-page__title">hey, <br>flex girl!</div>
+                        <div class="main-page__pre-title">Давай сыграем в игру?</div>
+                    </div>
+                    <div class="main-page__bottom">
+                        <div class="main-page__bottom-text">Если выиграешь – получишь классные бонусы от The Flex</div>
+                        <a href="./pages/game.html" class="my-button">начать</a>
+                    </div>
+                </div>
+                <div class="main-page__bg-images">
+                    <img src="./assets/images/heart.svg" alt="" class="main-page__bg-img-1">
+                    <img src="./assets/images/heart.svg" alt="" class="main-page__bg-img-2">
+                    <img src="./assets/images/heart.svg" alt="" class="main-page__bg-img-3">
+                </div>
+            </div>
+        </main>
+
+    </div>
 </body>
+
 </html>
