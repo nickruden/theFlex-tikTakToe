@@ -102,17 +102,17 @@ function announceWinner(player) {
   gameActive = false;
 
   if (player) {
-    // Находим выигрышную комбинацию
-    const winningCombination = findWinningMove(player);
-    if (winningCombination !== null) {
-      highlightWinningCombination(winningCombination); // Зачеркиваем выигрышную комбинацию
-    }
-
     // Добавляем класс won или loss в зависимости от победителя
     if (player === "X") {
       board.classList.add("won"); // Игрок победил
+      showWinAnimation();
     } else {
       board.classList.add("loss"); // Компьютер победил
+      const winningCombination = findWinningCombination("O"); // Находим выигрышную комбинацию
+      console.log(winningCombination)
+      if (winningCombination) {
+        highlightWinningCombination(winningCombination); // Отображаем линию
+      }
       restartButton.style.display = "flex";
       lossText.style.display = "block";
     }
@@ -124,38 +124,93 @@ function announceWinner(player) {
   }
 }
 
-// Подсветка выигрышной комбинации
 function highlightWinningCombination(combination) {
-  const [a, b, c] = combination;
+  const lossLine = document.getElementById('lossLine');
 
-  // Создаем линию, которая будет зачеркивать выигрышную комбинацию
-  const line = document.createElement("div");
-  line.classList.add("winning-line");
+  // Определяем тип линии (горизонтальная, вертикальная, диагональная)
+  if ((combination[0] === 0 && combination[2] === 2) || (combination[0] === 3 && combination[2] === 5) || (combination[0] === 6 && combination[2] === 8)) {
+    lossLine.classList.add('horizontal');
+    switch (combination[0]) {
+      case 0: 
+        lossLine.classList.add('--v1');
+        break;
+      case 3: 
+        lossLine.classList.add('--v2');
+        break;
+      case 6: 
+        lossLine.classList.add('--v3');
+        break;
+    }
+  } else if (combination[0] === 0 && combination[2] === 8) {
+    lossLine.classList.add('diagonal-left');
+  } else if (combination[0] === 2 && combination[2] === 6) {
+    lossLine.classList.add('diagonal-right');
+  } else {
+    lossLine.classList.add('vertical');
+    switch (combination[0]) {
+      case 0: 
+        lossLine.classList.add('--v1');
+        break;
+      case 1: 
+        lossLine.classList.add('--v2');
+        break;
+      case 2: 
+        lossLine.classList.add('--v3');
+        break;
+    }
+  }
 
-  // Определяем позицию и ориентацию линии
-  const cellA = cells[a];
-  const cellB = cells[b];
-  const cellC = cells[c];
+  lossLine.classList.add('visible'); // Показываем линию
+}
 
-  const rectA = cellA.getBoundingClientRect();
-  const rectC = cellC.getBoundingClientRect();
+function findWinningCombination(player) {
+  const winningCombinations = [
+    [0, 1, 2], // Горизонтальная верхняя
+    [3, 4, 5], // Горизонтальная средняя
+    [6, 7, 8], // Горизонтальная нижняя
+    [0, 3, 6], // Вертикальная левая
+    [1, 4, 7], // Вертикальная средняя
+    [2, 5, 8], // Вертикальная правая
+    [0, 4, 8], // Диагональ (лево-верх -> право-низ)
+    [2, 4, 6], // Диагональ (право-верх -> лево-низ)
+  ];
 
-  const boardRect = board.getBoundingClientRect();
+  for (const combo of winningCombinations) {
+    const [a, b, c] = combo;
+    const imgA = cells[a].querySelector("img");
+    const imgB = cells[b].querySelector("img");
+    const imgC = cells[c].querySelector("img");
 
-  const x1 = rectA.left - boardRect.left + rectA.width / 2;
-  const y1 = rectA.top - boardRect.top + rectA.height / 2;
-  const x2 = rectC.left - boardRect.left + rectC.width / 2;
-  const y2 = rectC.top - boardRect.top + rectC.height / 2;
+    if (
+      imgA &&
+      imgB &&
+      imgC &&
+      imgA.alt === player &&
+      imgB.alt === player &&
+      imgC.alt === player
+    ) {
+      return combo; // Возвращаем выигрышную комбинацию
+    }
+  }
+  return null; // Если комбинация не найдена
+}
 
-  const angle = Math.atan2(y2 - y1, x2 - x1) * (180 / Math.PI);
-  const length = Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2);
+function showWinAnimation() {
+  const winHeart = document.querySelector('.game-page__win-heart');
+  const wrapper = document.querySelector('.wrapper');
+  const winScreen = document.getElementById('win-screen');
 
-  line.style.width = `${length}px`;
-  line.style.transform = `rotate(${angle}deg)`;
-  line.style.top = `${y1}px`;
-  line.style.left = `${x1}px`;
+  winHeart.classList.add('visible');
+  wrapper.style.overflow = 'hidden';
+  winScreen.classList.remove('hidden');
+  board.style.zIndex = 1;
 
-  board.appendChild(line);
+  setTimeout(() => {
+    winHeart.classList.remove('visible');
+    setTimeout(() => {
+      window.location.href = "./final.html"; // Укажите правильный путь
+    }, 0);
+  }, 1200);
 }
 
 // Логика поиска лучшего хода для компьютера
@@ -212,6 +267,16 @@ function findWinningMove(player) {
 
 // Перезапуск игры
 function restartGame() {
+  const winScreen = document.getElementById('win-screen');
+  const wrapper = document.querySelector('.wrapper');
+  const lossLine = document.getElementById('lossLine');
+
+  // Сбрасываем состояния анимаций
+  winScreen.classList.add('hidden');
+  wrapper.style.overflow = '';
+  lossLine.className = "";
+  lossLine.classList.add('loss-line');
+
   cells.forEach((cell) => {
     cell.innerHTML = ""; // Очищаем ячейки
   });

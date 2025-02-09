@@ -1,7 +1,6 @@
 .game-content {
     margin-bottom: 13.4px;
     position: relative;
-    overflow: hidden;
 }
 .game-content__game-board {
     padding-top: 60px;

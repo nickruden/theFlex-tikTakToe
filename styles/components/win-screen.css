@@ -1,0 +1,52 @@
+.win-screen {
+    transition: opacity 0.5s ease-in-out 0.2s;
+    opacity: 1;
+    height: 100%;
+    background-color: #B72929;
+    z-index: 700;
+    position: absolute;
+    width: 100%;
+}
+.win-screen.hidden {
+    opacity: 0;
+    z-index: 0;
+}
+.win-screen__container {
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+}
+.win-screen__inner {
+    position: relative;
+}
+.win-screen__title {
+    font-family: 'TipWarp';
+    font-size: 40px;
+    line-height: 40px;
+    max-width: 140px;
+    position: relative;
+    z-index: 5;
+}
+.win-screen__images {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+}
+.win-screen__images > * {
+    position: absolute;
+}
+.win-screen__image-1 {
+    width: 46px;
+    top: -25px;
+    left: -30px;
+    transform: rotate(-17deg);
+}
+.win-screen__image-2 {
+    width: 139px;
+    top: 28px;
+    left: 48px;
+    transform: scaleX(-1);
+}

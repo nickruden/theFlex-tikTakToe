@@ -13,16 +13,16 @@
   <link rel="stylesheet" href="../styles/components/win-screen.css">
   <link rel="stylesheet" href="../styles/UI/my-button.css">
 
-  <link rel="stylesheet" href="../styles/pages/game.css">
+  <link rel="stylesheet" href="../styles/pages/final.css">
 </head>
 
 <body>
-  <div class="wrapper --bgColor-white">
-    <div class="header --position-center">
+  <div class="wrapper">
+    <div class="header">
       <div class="my-container header__container">
         <a href="../index.html" class="header__logo-link">
           <div class="header__logo-wrap-img">
-            <img src="../assets/images/logo-red.svg" alt="" class="logo-img">
+            <img src="../assets/images/logo.svg" alt="" class="logo-img">
           </div>
         </a>
       </div>
@@ -42,26 +42,26 @@
     </div>
 
     <main class="main">
-      <div class="game-page">
-        <div class="my-container game-page__container">
-          <div class="game-page__loss-text">Упс! В следующий раз удача будет на твоей стороне</div>
-          <div class="game-content game-page__game-content">
-            <div class="game-content__game-board" id="board"></div>
-            <div class="game-content__bg-images">
-              <img src="../assets/images/game-line.svg" alt="" class="game-content__bg-img-1">
-              <img src="../assets/images/game-line.svg" alt="" class="game-content__bg-img-2">
-              <img src="../assets/images/game-line.svg" alt="" class="game-content__bg-img-3">
-              <img src="../assets/images/game-line.svg" alt="" class="game-content__bg-img-4">
-              <img src="../assets/images/heart-darker.svg" alt="" class="game-page__win-heart">
+      <div class="final-page">
+        <div class="my-container final-page__container">
+            <div class="final-page__top">
+                <div class="final-page__title">+500₽</div>
+                <div class="final-page__pre-title">Твой подарок на лицевой счет</div>
             </div>
-            <img src="../assets/images/loss-line.svg" alt="" class="loss-line" id="lossLine">
-          </div>
-          <button class="my-button --color-red" id="restartButton">попробовать еще раз</button>
+            <div class="final-page__bottom">
+                <div class="final-page__pre-title">Покажи скриншот администратору, чтобы начислить бонусы.</div>
+                <div class="final-page__bottom-text">Ты можешь воспользоваться предложением только один раз.</div>
+            </div>
+        </div>
+        <div class="final-page__bg-images">
+            <img src="../assets/images/heart.svg" alt="" class="final-page__bg-img-1">
+            <img src="../assets/images/heart.svg" alt="" class="final-page__bg-img-2">
+            <img src="../assets/images/present.svg" alt="" class="final-page__bg-img-3">
         </div>
       </div>
     </main>
 
-    <div id="win-screen" class="win-screen hidden">
+    <!-- <div id="win-screen" class="win-screen hidden">
       <div class="my-container win-screen__container">
         <div class="win-screen__inner">
           <div class="win-screen__title">love always wins.</div>
@@ -71,10 +71,8 @@
           </div>
         </div>
       </div>
+    </div> -->
     </div>
-    </div>
-
-  <script src="../assets/scripts/game.js"></script>
 </body>
 
 </html>

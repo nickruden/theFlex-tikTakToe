@@ -1,11 +1,16 @@
 .main {
+    overflow: visible;
 }
 .game-page {
     padding-top: 17px;
     padding-bottom: 20px;
+    position: relative;
+    z-index: 100;
+    height: 100%;
 }
 .game-page__container {
     align-items: center;
+    overflow: visible;
 }
 .game-page__loss-text {
     font-size: 14px;
@@ -16,4 +21,73 @@
 }
 .game-page__game-content {
     margin-bottom: 13.4px;
+}
+.game-page__win-heart.visible {
+    display: inline;
+    animation: heartScale 1s ease-in-out forwards;
+    z-index: 600;
+}
+.game-page__win-heart {
+    display: none;
+    top: 44%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+@keyframes heartScale {
+    0% {
+      transform: translate(-50%, -50%) scale(1);
+    }
+    100% {
+      transform: translate(-50%, -50%) scale(30);
+    }
+  }
+
+.loss-line {
+    display: none;
+    position: absolute;
+    top: 37px;
+    left: 36px;
+    z-index: 1500;
+}
+.loss-line.visible {
+    display: inline;
+}
+.loss-line.horizontal {
+    transform: rotate(-45deg);
+    height: 244px;  
+    left: 52px;
+}
+.loss-line.horizontal.--v1 {
+    top: -68px;
+}
+.loss-line.horizontal.--v2 {
+    top: 53px;
+}
+.loss-line.horizontal.--v3 {
+    top: 167px;
+}
+.loss-line.vertical {
+    transform: rotate(45deg);
+    height: 244px; 
+    top: 55px
+}
+.loss-line.vertical.--v1 {
+    left: -72px;
+}
+.loss-line.vertical.--v2 {
+    left: 49px;
+}
+.loss-line.vertical.--v3 {
+    left: 165px;
+}
+.loss-line.diagonal-left {
+    transform: rotate(0deg);
+    top: 28.5px;
+    left: 28.5px;
+}
+  
+.loss-line.diagonal-right {
+    transform: rotate(90deg);
+    top: 28.5px;
+    left: 28.5px;
 }

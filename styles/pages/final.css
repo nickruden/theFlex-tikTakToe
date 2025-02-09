@@ -1,0 +1,69 @@
+.wrapper {
+    position: relative;
+}
+.main {
+}
+.final-page {
+    height: 100%;
+    padding-top: 49px;
+    padding-bottom: 30px;
+}
+.final-page__container {
+    position: relative;
+    z-index: 5;
+    justify-content: space-between;
+}
+.final-page__top {
+    padding-left: 3px;
+    position: relative;
+}
+.final-page__title {
+    font-family: 'TipWarp';
+    font-size: 80px;
+}
+.final-page__top .final-page__pre-title {
+    position: relative;
+    bottom: 9px;
+}
+.final-page__bottom {
+    padding-left: 10px;
+    display: flex;
+    flex-direction: column;
+}
+.final-page__bottom .final-page__pre-title {
+    max-width: 277px;
+    margin-bottom: 34px;
+}
+.final-page__bottom-text {
+    font-size: 12px;
+    max-width: 277px;
+}
+.final-page__bg-images {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    overflow: hidden;
+}
+.final-page__bg-images > * {
+    position: absolute;
+}
+.final-page__bg-img-1 {
+    top: 8px;
+    left: 318px;
+    width: 46px;
+    transform: rotate(-17deg);
+}
+.final-page__bg-img-2 {
+    top: 58px;
+    left: 282px;
+    width: 81px;
+    transform: scaleX(-1) rotate(-17deg);
+}
+.final-page__bg-img-3 {
+    bottom: -17px;
+    left: -35px;
+    transform: rotate(7deg);
+}

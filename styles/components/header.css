@@ -1,5 +1,7 @@
 .header {
     padding-top: 34px;
+    position: relative;
+    z-index: 100;
 }
 .header.--position-center .header__container {
     align-items: center;
