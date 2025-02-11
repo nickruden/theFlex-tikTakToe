@@ -43,23 +43,44 @@
             <div class="main-page">
                 <div class="my-container main-page__container">
                     <div class="main-page__top">
-                        <div class="main-page__title">hey, <br>flex girl!</div>
-                        <div class="main-page__pre-title">Давай сыграем в игру?</div>
+                        <div class="main-page__title" data-queue-animation="1" data-timing="0">hey, <br>flex girl!</div>
+                        <div class="main-page__pre-title" data-queue-animation="5" data-timing="0.2">Давай сыграем в игру?</div>
                     </div>
                     <div class="main-page__bottom">
-                        <div class="main-page__bottom-text">Если выиграешь – получишь классные бонусы от The Flex</div>
-                        <a href="./pages/game.html" class="my-button">начать</a>
+                        <div class="main-page__bottom-text" data-queue-animation="6" data-timing="0.3">Если выиграешь – получишь классные бонусы от The Flex</div>
+                        <a href="./pages/game.html" class="my-button main-page__button" data-queue-animation="7" data-timing="0.3">начать</a>
                     </div>
                 </div>
                 <div class="main-page__bg-images">
-                    <img src="./assets/images/heart.svg" alt="" class="main-page__bg-img-1">
-                    <img src="./assets/images/heart.svg" alt="" class="main-page__bg-img-2">
-                    <img src="./assets/images/heart.svg" alt="" class="main-page__bg-img-3">
+                    <img src="./assets/images/heart.svg" alt="" class="main-page__bg-img-1" data-queue-animation="2" data-timing="0.3">
+                    <img src="./assets/images/heart.svg" alt="" class="main-page__bg-img-2" data-queue-animation="3" data-timing="0.3">
+                    <img src="./assets/images/heart.svg" alt="" class="main-page__bg-img-3" data-queue-animation="4" data-timing="0.2">
+                    <img src="./assets/images/heart.svg" alt="" class="main-page__bg-img-4" data-queue-animation="8" data-timing="0.2">
+                    <img src="./assets/images/heart.svg" alt="" class="main-page__bg-img-5" data-queue-animation="9" data-timing="0.2">
                 </div>
             </div>
         </main>
 
     </div>
 </body>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+    // Находим все элементы с атрибутом data-queue-animation
+    const elements = document.querySelectorAll("[data-queue-animation]");
+  
+    // Сортируем элементы по значению data-queue-animation
+    const sortedElements = Array.from(elements).sort((a, b) => {
+      return a.getAttribute("data-queue-animation") - b.getAttribute("data-queue-animation");
+    });
+  
+    // Запускаем анимацию по очереди
+    sortedElements.forEach((element, index) => {
+      const timing = parseFloat(element.getAttribute("data-timing")) || 0.5; // Берём тайминг из атрибута или используем 0.5 по умолчанию
+      setTimeout(() => {
+        element.classList.add("visible"); // Добавляем класс для плавного появления
+      }, timing * 1000 * index); // Умножаем на индекс для последовательности
+    });
+  });
+  </script>
 
 </html>

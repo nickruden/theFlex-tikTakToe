@@ -1,6 +1,8 @@
 const board = document.getElementById("board");
-const lossText = document.querySelector(".game-page__loss-text");
 const restartButton = document.getElementById("restartButton");
+const lossModal = document.getElementById("lossModal");
+const pageInner = document.querySelector(".page-inner");
+
 const cells = [];
 const xImage = "../assets/images/x.svg";
 const oImage = "../assets/images/heart.svg";
@@ -18,9 +20,6 @@ function createBoard() {
     board.appendChild(cell);
     cells.push(cell);
   }
-
-  restartButton.style.display = "none";
-  lossText.style.display = "none";
 }
 
 // Обработчик клика по ячейке
@@ -34,10 +33,11 @@ function handleCellClick(event) {
   addImageToCell(cell, currentPlayer);
 
   checkGameStatus();
-
   if (gameActive && currentPlayer === "X") {
     currentPlayer = "O";
-    computerMove();
+    setTimeout(() => {
+      computerMove();
+    }, 100);
   }
 }
 
@@ -57,7 +57,11 @@ function computerMove() {
   if (bestMove !== null) {
     addImageToCell(cells[bestMove], "O");
     checkGameStatus();
-    currentPlayer = "X";
+    setTimeout(() => {
+      if (gameActive) {
+        currentPlayer = "X";
+      }
+    }, 100);
   }
 }
 
@@ -114,13 +118,15 @@ function announceWinner(player) {
         highlightWinningCombination(winningCombination); // Отображаем линию
       }
       restartButton.style.display = "flex";
-      lossText.style.display = "block";
+      lossModal.classList.add('active');
+      pageInner.classList.add('loss-modal-open');
     }
 
   } else {
     board.classList.add("loss");
     restartButton.style.display = "flex";
-    lossText.style.display = "block";
+    lossModal.classList.add('active');
+    pageInner.classList.add('loss-modal-open');
   }
 }
 
@@ -284,8 +290,10 @@ function restartGame() {
   board.querySelectorAll(".winning-line").forEach((line) => line.remove()); // Удаляем линии
   currentPlayer = "X";
   gameActive = true;
-  restartButton.style.display = "none";
-  lossText.style.display = "none";
+  console.log(1)
+
+  lossModal.classList.remove('active');
+  pageInner.classList.remove('loss-modal-open');
 }
 
 // Инициализация игры

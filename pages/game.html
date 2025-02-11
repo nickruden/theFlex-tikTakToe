@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="../styles/components/desktop-block.css">
   <link rel="stylesheet" href="../styles/components/header.css">
   <link rel="stylesheet" href="../styles/components/game/game-board.css">
+  <link rel="stylesheet" href="../styles/components/game/loss-modal.css">
   <link rel="stylesheet" href="../styles/components/win-screen.css">
   <link rel="stylesheet" href="../styles/UI/my-button.css">
 
@@ -18,49 +19,64 @@
 
 <body>
   <div class="wrapper --bgColor-white">
-    <div class="header --position-center">
-      <div class="my-container header__container">
-        <a href="../index.html" class="header__logo-link">
-          <div class="header__logo-wrap-img">
-            <img src="../assets/images/logo-red.svg" alt="" class="logo-img">
-          </div>
-        </a>
-      </div>
-    </div>
-
-    <!-- ЗАГЛУШКА ДЛЯ ПК -->
-    <div class="desktop-block">
-      <div class="my-container desktop-block__container">
-        <img src="../assets/images/logo.svg" alt="" class="desktop-block__logo">
-        <div class="desktop-block__text">
-          Сайт доступен для мобильной версии <br> Откройте сайт на телефоне
-        </div>
-        <div class="desktop-block__icon-wrap">
-          <img src="../assets/images/desktop-icon.svg" alt="" class="desktop-block__icon">
-        </div>
-      </div>
-    </div>
-
-    <main class="main">
-      <div class="game-page">
-        <div class="my-container game-page__container">
-          <div class="game-page__loss-text">Упс! В следующий раз удача будет на твоей стороне</div>
-          <div class="game-content game-page__game-content">
-            <div class="game-content__game-board" id="board"></div>
-            <div class="game-content__bg-images">
-              <img src="../assets/images/game-line.svg" alt="" class="game-content__bg-img-1">
-              <img src="../assets/images/game-line.svg" alt="" class="game-content__bg-img-2">
-              <img src="../assets/images/game-line.svg" alt="" class="game-content__bg-img-3">
-              <img src="../assets/images/game-line.svg" alt="" class="game-content__bg-img-4">
-              <img src="../assets/images/heart-darker.svg" alt="" class="game-page__win-heart">
+    <div class="page-inner">
+      <div class="header --position-center">
+        <div class="my-container header__container">
+          <a href="../index.html" class="header__logo-link">
+            <div class="header__logo-wrap-img">
+              <img src="../assets/images/logo-red.svg" alt="" class="logo-img">
             </div>
-            <img src="../assets/images/loss-line.svg" alt="" class="loss-line" id="lossLine">
-          </div>
-          <button class="my-button --color-red" id="restartButton">попробовать еще раз</button>
+          </a>
         </div>
       </div>
-    </main>
 
+      <!-- ЗАГЛУШКА ДЛЯ ПК -->
+      <div class="desktop-block">
+        <div class="my-container desktop-block__container">
+          <img src="../assets/images/logo.svg" alt="" class="desktop-block__logo">
+          <div class="desktop-block__text">
+            Сайт доступен для мобильной версии <br> Откройте сайт на телефоне
+          </div>
+          <div class="desktop-block__icon-wrap">
+            <img src="../assets/images/desktop-icon.svg" alt="" class="desktop-block__icon">
+          </div>
+        </div>
+      </div>
+
+      <main class="main">
+        <div class="game-page">
+          <div class="my-container game-page__container">
+            <!-- <div class="game-page__loss-text">Упс! В следующий раз удача будет на твоей стороне</div> -->
+            <div class="game-content game-page__game-content">
+              <div class="game-content__game-board" id="board"></div>
+              <div class="game-content__bg-images">
+                <img src="../assets/images/game-line.svg" alt="" class="game-content__bg-img-1">
+                <img src="../assets/images/game-line.svg" alt="" class="game-content__bg-img-2">
+                <img src="../assets/images/game-line.svg" alt="" class="game-content__bg-img-3">
+                <img src="../assets/images/game-line.svg" alt="" class="game-content__bg-img-4">
+                <img src="../assets/images/heart-darker.svg" alt="" class="game-page__win-heart">
+              </div>
+              <img src="../assets/images/loss-line.svg" alt="" class="loss-line" id="lossLine">
+            </div>
+            <!-- <button class="my-button --color-red" id="restartButton">попробовать еще раз</button> -->
+          </div>
+        </div>
+      </main>
+
+      <!-- <div id="win-screen" class="win-screen hidden">
+        <div class="my-container win-screen__container">
+          <div class="win-screen__inner">
+            <div class="win-screen__title">love always wins.</div>
+            <div class="win-screen__images">
+              <img src="../assets/images/heart.svg" alt="" class="win-screen__image-1">
+              <img src="../assets/images/heart.svg" alt="" class="win-screen__image-2">
+            </div>
+          </div>
+        </div>
+      </div> -->
+    </div>
+
+    <!-- Выигрышный экран -->
     <div id="win-screen" class="win-screen hidden">
       <div class="my-container win-screen__container">
         <div class="win-screen__inner">
@@ -72,7 +88,19 @@
         </div>
       </div>
     </div>
+
+    <!-- Модальное окно проигрыша -->
+    <div class="loss-modal" id="lossModal">
+      <div class="loss-modal__content">
+        <div class="loss-modal__container">
+          <div class="loss-modal__inner">
+            <div class="loss-modal__text">Упс! В следующий раз удача будет на&nbsp;твоей стороне</div>
+            <button class="my-button" id="restartButton">попробовать еще раз</button>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 
   <script src="../assets/scripts/game.js"></script>
 </body>

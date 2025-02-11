@@ -45,18 +45,19 @@
       <div class="final-page">
         <div class="my-container final-page__container">
             <div class="final-page__top">
-                <div class="final-page__title">+500₽</div>
-                <div class="final-page__pre-title">Твой подарок на лицевой счет</div>
+              <div class="final-page__check">
+                <img src="../assets/images/final-page-img.png" alt="" class="final-page__check-img">
+              </div>
+              <div class="final-page__top-text">Твой подарок на лицевой счет</div>
             </div>
             <div class="final-page__bottom">
-                <div class="final-page__pre-title">Покажи скриншот администратору, чтобы начислить бонусы.</div>
-                <div class="final-page__bottom-text">Ты можешь воспользоваться предложением только один раз.</div>
+                <div class="final-page__bottom-text">Покажи скриншот администратору, чтобы начислить бонусы <br> *Ты можешь воспользоваться предложением только один раз</div>
             </div>
         </div>
         <div class="final-page__bg-images">
-            <img src="../assets/images/heart.svg" alt="" class="final-page__bg-img-1">
-            <img src="../assets/images/heart.svg" alt="" class="final-page__bg-img-2">
-            <img src="../assets/images/present.svg" alt="" class="final-page__bg-img-3">
+            <img src="../assets/images/heart.svg" alt="" class="final-page__bg-img-1" data-queue-animation="1" data-timing="0.5">
+            <img src="../assets/images/heart.svg" alt="" class="final-page__bg-img-2" data-queue-animation="2" data-timing="0.3">
+            <img src="../assets/images/heart.svg" alt="" class="final-page__bg-img-3" data-queue-animation="3" data-timing="0.4">
         </div>
       </div>
     </main>
@@ -74,5 +75,24 @@
     </div> -->
     </div>
 </body>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+  // Находим все элементы с атрибутом data-queue-animation
+  const elements = document.querySelectorAll("[data-queue-animation]");
+
+  // Сортируем элементы по значению data-queue-animation
+  const sortedElements = Array.from(elements).sort((a, b) => {
+    return a.getAttribute("data-queue-animation") - b.getAttribute("data-queue-animation");
+  });
+
+  // Запускаем анимацию по очереди
+  sortedElements.forEach((element, index) => {
+    const timing = parseFloat(element.getAttribute("data-timing")) || 0.5; // Берём тайминг из атрибута или используем 0.5 по умолчанию
+    setTimeout(() => {
+      element.classList.add("visible"); // Добавляем класс для плавного появления
+    }, timing * 1000 * index); // Умножаем на индекс для последовательности
+  });
+});
+</script>
 
 </html>

@@ -1,8 +1,11 @@
 .main {
     overflow: visible;
 }
+.page-inner.loss-modal-open {
+    filter: blur(2px);
+}
 .game-page {
-    padding-top: 17px;
+    padding-top: 58px;
     padding-bottom: 20px;
     position: relative;
     z-index: 100;
